@@ -19,7 +19,6 @@ Optionale Erweiterung:
 
 Plattform:
 -	Web-App
--	Android
 
 Kunden:
 -	Autoverleih ansprechen
