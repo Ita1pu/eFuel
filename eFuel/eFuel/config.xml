@@ -28,6 +28,9 @@
     <icon src="res/icons/android/icon-48-mdpi.png" density="mdpi" />
     <icon src="res/icons/android/icon-72-hdpi.png" density="hdpi" />
     <icon src="res/icons/android/icon-96-xhdpi.png" density="xhdpi" />
+    <feature name="Notification">
+      <param name="android-package" value="org.apache.cordova.Notification" />
+    </feature>
   </platform>
   <platform name="ios">
     <!-- iOS 8.0+ -->
@@ -109,4 +112,7 @@
   <plugin name="phonegap-plugin-push" version="1.10.0" src="https://github.com/phonegap/phonegap-plugin-push">
     <variable name="SENDER_ID" value="666" />
   </plugin>
+  <preference name="InAppBrowserStorageEnabled" value="False" />
+  <plugin name="cordova-plugin-vibration" version="2.1.4" />
+  <plugin name="cordova-plugin-dialogs" version="1.3.2" />
 </widget>
