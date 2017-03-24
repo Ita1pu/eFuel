@@ -16,6 +16,7 @@
 
                 </section>
             </div>
+<<<<<<< HEAD
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
             
             <script type="text/javascript">
@@ -55,9 +56,70 @@
                       alert('Something went wrong.');
                     });
                 }
+=======
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+			<script src="classes.js"></script>
+			<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjhd6348LSC3_Oyw3FAzH2mvpS5v0GLyg&callback=testAPI" async defer></script>
+			<script src="../gas-station-finder/gasStationFinder.js"></script>
+            <!--script src="../eFuel/eFuel/www/scripts/finder.js"></script-->
+			<script type="text/javascript">
+			
+            
+                			
+				function testAPI()
+				{
+					getAllStationsInRadius(49, 12, 100, function (stations) {
+						
+						var origin1 = new google.maps.LatLng(49, 12);
+						var destination = [];
+						
+						var max = 0;
+						stations.forEach(function (stat) {
+							if(max++ < 20)
+							{
+								var coord = stat.getCoordinates();
+								destination.push(new google.maps.LatLng(coord.lat, coord.lng));
+							}
+						});
+						
+						var service = new google.maps.DistanceMatrixService();
+						service.getDistanceMatrix(
+						{
+							origins: [origin1],
+							destinations: destination,
+							travelMode: google.maps.TravelMode.DRIVING,
+						}, callback);
+
+						
+						
+						function callback(response, status) {
+
+							var shortestStation = stations[0];
+									
+							//Row's
+							for(var i=0; i<response.rows.length; i++)
+							{
+								shortestStation.setDistance(response.rows[i].elements[0].distance.value);
+								
+								//Element's
+								for(var j=1; j<response.rows[i].elements.length; j++)
+								{					
+									if(shortestStation.getDistance() > response.rows[i].elements[j].distance.value)
+									{
+										shortestStation = stations[j];
+										shortestStation.setDistance(response.rows[i].elements[j].distance.value);
+									}
+								}
+							}
+
+							alert("Last:" + shortestStation.getDistance());
+						}
+					});	
+				}
+>>>>>>> 41d92010d89c1fb95b706a2bff83430e963d5c67
                 
                 $(function(){
-                    loadArticle1();
+                    //testAPI();
                 });
             </script>
         </body>

@@ -80,7 +80,6 @@ Plugs.prototype.getPower = function()
 	return this.power;
 }
 
-
 function Address(street, streetNo, zip, city, country)
 {
 	this.street = street;

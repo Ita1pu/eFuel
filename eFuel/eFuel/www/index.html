@@ -11,17 +11,17 @@
     <meta name="viewport" content="initial-scale=1.0">
     <meta charset="utf-8">
 
-    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css" />
     <link rel="stylesheet" href="css/index.css" />
 
-    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script src="scripts/jquery-1.11.1.min.js"></script>
+    <script src="scripts/jquery.mobile-1.4.5.min.js"></script>
 
-    <script type="text/javascript" src="cordova.js"></script>
-    <script type="text/javascript" src="scripts/platformOverrides.js"></script>
-    <script type="text/javascript" src="scripts/map.js"></script>
-    <script type="text/javascript" src="scripts/finder.js"></script>
-    <script type="text/javascript" src="scripts/index.js"></script>
+    <script src="cordova.js"></script>
+    <script src="scripts/platformOverrides.js"></script>
+    <script src="scripts/map.js"></script>
+    <script src="scripts/finder.js"></script>
+    <script src="scripts/index.js"></script>
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjhd6348LSC3_Oyw3FAzH2mvpS5v0GLyg&callback=onGoogleMapsReady" async defer></script>
 </head>
@@ -52,12 +52,24 @@
             <div role="main" class="ui-content">
                 <form>
                     <div class="ui-field-contain">
-                        <label for="plug-type">Stecker-Type:</label>
+                        <label for="plug-type">Stecker-Typ:</label>
                         <select name="plug-type" id="plug-type">
-                            <option value="1">Typ1</option>
-                            <option value="2">Typ2</option>
-                            <option value="3">Typ3</option>
-                            <option value="4">Typ4</option>
+                            <option value="">Alle</option>
+                            <option value="CCS">CCS</option>
+                            <option value="CEE Blau">CEE Blau</option>
+                            <option value="CEE Rot">CEE Rot</option>
+                            <option value="CEE+">CEE+</option>
+                            <option value="CHAdeMO">CHAdeMO</option>
+                            <option value="Schuko">Schuko</option>
+                            <option value="Tesla HPC">Tesla HPC</option>
+                            <option value="Tesla Supercharger">Tesla Supercharger</option>
+                            <option value="Typ1">Typ1</option>
+                            <option value="Typ13">Typ13</option>
+                            <option value="Typ15">Typ15</option>
+                            <option value="Typ2">Typ2</option>
+                            <option value="Typ23">Typ23</option>
+                            <option value="Typ25">Typ25</option>
+                            <option value="Typ3">Typ3</option>
                         </select>
                     </div>
 

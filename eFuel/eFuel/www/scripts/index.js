@@ -4,7 +4,7 @@ document.addEventListener('deviceready', onDeviceReady.bind(this), false);
 
 function getLocation(callback) {
     navigator.geolocation.getCurrentPosition(callback,
-        function (eror) {
+        function(eror) {
             alert("Error getting golocation!");
         });
 }
@@ -17,50 +17,49 @@ function addStationMarker(lat, lng) {
     Map.addMarker(lat, lng, Map.ICON_STATION);
 }
 
-function refreshLocation() {
-    getLocation(function (position) {
-        var fuelRange = position.coords.speed; // fuel range in km
+function setMarker(radius, plugType, showRoute) {
+    getLocation(function(position) {
+        Finder.getAllStationsInRadius(position.coords.latitude, position.coords.longitude, radius, plugType,
+            function(err, stations) {
+                Map.removeMarkers();
+                Map.addMarker(position.coords.latitude, position.coords.longitude, Map.ICON_CAR);
 
-        Map.removeMarkers();
+                if (showRoute) {
+                    let bestMatch = stations[0];
+                    if (!bestMatch) {
+                        alert("Ups, wir konnten keine Station finden.");
+                        return;
+                    }
 
-        Finder.getAllStationsInRadius(position.coords.latitude, position.coords.longitude, fuelRange, function (err, coords) {
-            coords.forEach(function (coord) {
-                Map.addMarker(coord.lat, coord.lng, Map.ICON_STATION);
+                    Map.showLocationTo(position.coords.latitude, position.coords.longitude, bestMatch.lat, bestMatch.lng);
+                }
+
+                stations.forEach(function(station) {
+                    Map.addMarker(station.lat, station.lng, Map.ICON_STATION, station.name);
+                });
             });
-        });
-
-        addCarMarker(position.coords.latitude, position.coords.longitude);
     });
 }
 
+function refreshLocation() {
+    var radius = 100; // fuel range in km
+    setMarker(radius, "", false);
+}
+
 function onDeviceReady() {
-    $(".Panel__toggle-btn").click(function () {
+    $(".Panel__toggle-btn").click(function() {
         $(".Panel").panel("toggle");
     });
 
-    $(".SearchPopup__submit").click(function () {
+    $(".Panel a").click(function() {
+        $(".Panel").panel("close");
+    });
+
+    $(".SearchPopup__submit").click(function() {
         let radius = parseFloat($("[name='distance-slider']").val(), 10);
+        let plugType = $("[name='plug-type']").val();
 
-        getLocation(function(position) {
-            var posLat = position.coords.latitude;
-            var posLng = position.coords.longitude;
-            Finder.getAllStationsInRadius(posLat, posLng, radius, function (err, coords) {
-                Map.removeMarkers();
-                Map.addMarker(posLat, posLng, Map.ICON_CAR);
-
-                let bestMatch = coords[0];
-                if(!bestMatch) {
-                    alert("Ups, wir konnten keine Station finden.");
-                    return;
-                }
-
-                Map.showLocationTo(posLat, posLng, bestMatch.lat, bestMatch.lng);
-
-                coords.forEach(function (coord) {
-                    Map.addMarker(coord.lat, coord.lng, Map.ICON_STATION);
-                });
-            });
-        });
+        setMarker(radius, plugType, true);
     });
 
     document.addEventListener('pause', onPause.bind(this), false);

@@ -85,6 +85,16 @@
     <splash src="res/screens/android/screen-ldpi-portrait.png" density="port-ldpi" />
     <splash src="res/screens/android/screen-mdpi-portrait.png" density="port-mdpi" />
     <splash src="res/screens/android/screen-xhdpi-portrait.png" density="port-xhdpi" />
+
+    <config-file target="AndroidManifest.xml" parent="/manifest">
+      <uses-permission name="android.permission.ACCESS_NETWORK_STATE" />
+      <uses-permission name="com.google.android.gms.permission.ACTIVITY_RECOGNITION" />
+      <uses-permission name="android.permission.ACCESS_COARSE_LOCATION" />
+      <uses-permission name="android.permission.ACCESS_FINE_LOCATION" />
+      <uses-permission name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+      <uses-permission name="android.permission.INTERNET" />
+      <uses-permission name="android.permission.WAKE_LOCK" />
+    </config-file>
   </platform>
   <platform name="ios">
     <splash src="res/screens/ios/screen-iphone-portrait.png" width="320" height="480" />
@@ -114,15 +124,6 @@
   <plugin name="cordova-plugin-x-toast" version="2.6.0" />
   <plugin name="cordova-plugin-geolocation" version="2.4.2" />
   <plugin name="cordova-plugin-android-permissions" version="0.10.0" />
-  <config-file target="AndroidManifest.xml" parent="/manifest">
-    <uses-permission name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission name="com.google.android.gms.permission.ACTIVITY_RECOGNITION" />
-    <uses-permission name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
-    <uses-permission name="android.permission.INTERNET" />
-    <uses-permission name="android.permission.WAKE_LOCK" />
-  </config-file>
   <plugin name="cordova-plugin-compat" version="1.1.0" />
   <access origin="*" />
   <allow-navigation href="*" />
