@@ -101,7 +101,8 @@ function initMap() {
     var marker = new google.maps.Marker({
         position: point,
         map: map,
-        title: "Point"
+        title: "Point",
+        icon: "images/icons/ic_power_black_24dp_1x.png"
     });
 
     var request = {
