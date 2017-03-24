@@ -2,6 +2,8 @@ html,
         body {
             margin: 0;
             padding: 0;
+
+            user-select: none;
         }
 
         html,
@@ -26,4 +28,6 @@ html,
             z-index: 1;
             font-size: 1.5rem;
             margin: 0.5em;
+
+            cursor: pointer;            
         }

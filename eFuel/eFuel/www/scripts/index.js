@@ -8,15 +8,11 @@
     document.addEventListener( 'deviceready', onDeviceReady.bind( this ), false );
 
     function onDeviceReady() {
-        $(document).on("pagecreate", function () {
-            //$(".Panel").panel("open");
+        //$(".Panel").panel("open");
 
-            $(".Panel__toggle-btn").click(function () {
-                $(".Panel").panel("toggle")
-            });
-        });
-        var map;
-        var directionsRenderer, directionsService;       
+        $(".Panel__toggle-btn").click(function () {
+            $(".Panel").panel("toggle")
+        });     
 
 
         // Verarbeiten der Cordova-Pause- und -Fortsetzenereignisse
@@ -65,6 +61,9 @@
 
     
 })();
+
+var map;
+var directionsRenderer, directionsService;
 
 function initMap() {
     var point = {
