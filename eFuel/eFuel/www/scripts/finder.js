@@ -41,7 +41,20 @@
 
     var Finder = window.Finder = {
         getAllStationsInRadius: function(lat, lng, radius, plugType, callback) {
-            if (["Super", "Diesel", "E10"].indexOf(plugType) > -1) {
+            if(plugType === "") {
+                var allStations = [];
+                var remainingCallbacks = 2;
+                var innerCb = function(err, stations) {
+                    if(err) return callback(err);
+
+                    allStations = allStations.concat(stations);
+                    remainingCallbacks--;
+                    if(remainingCallbacks === 0) return callback(null, allStations);
+                }
+
+                Finder.getAllGasStationsInRadius(lat, lng, radius, "", innerCb);
+                Finder.getAllElectroStationsInRadius(lat, lng, radius, "", innerCb);
+            } else if (["Super", "Diesel", "E10"].indexOf(plugType) > -1) {
                 Finder.getAllGasStationsInRadius(lat, lng, radius, plugType, callback);
             } else {
                 if (plugType === "Elektro") plugType = "";
@@ -55,7 +68,7 @@
 
             getJSON(url).then(function(data) {
                 var stations = data.entries.filter(function(entry) {
-                        return entry.location != null && entry[gasTypeShort]
+                        return entry.location != null && (gasType == "" || entry[gasTypeShort])
                     }).map(function(entry) {
                         entry.distance = getDistanceFromLatLonInKm(lat, lng, entry.location.lat, entry.location.lng);
                         return entry
