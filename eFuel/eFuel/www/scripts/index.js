@@ -17,20 +17,34 @@ function addStationMarker(lat, lng) {
     Map.addMarker(lat, lng, Map.ICON_STATION);
 }
 
-function refreshLocation() {
+function setMarker(radius, callback) {
     getLocation(function (position) {
-        var fuelRange = position.coords.speed; // fuel range in km
+        Finder.getAllStationsInRadius(position.coords.latitude, position.coords.longitude, radius,
+            function (err, stations) {
+                Map.removeMarkers();
+                Map.addMarker(position.coords.latitude, position.coords.longitude, Map.ICON_CAR);
 
-        Map.removeMarkers();
+                let bestMatch = stations[0];
+                if (!bestMatch) {
+                    alert("Ups, wir konnten keine Station finden.");
+                    return;
+                }
 
-        Finder.getAllStationsInRadius(position.coords.latitude, position.coords.longitude, fuelRange, function (err, coords) {
-            coords.forEach(function (coord) {
-                Map.addMarker(coord.lat, coord.lng, Map.ICON_STATION);
+                Map.showLocationTo(position.coords.latitude, position.coords.longitude, bestMatch.lat, bestMatch.lng);
+
+                stations.forEach(function (stations) {
+                    Map.addMarker(stations.lat, stations.lng, Map.ICON_STATION);
+                });
+
+                if (typeof callback != "undefined")
+                    callback();
             });
-        });
-
-        addCarMarker(position.coords.latitude, position.coords.longitude);
     });
+}
+
+function refreshLocation() {
+    var radius = 100; // fuel range in km
+    setMarker(radius);
 }
 
 function onDeviceReady() {
@@ -40,28 +54,8 @@ function onDeviceReady() {
 
     $(".SearchPopup__submit").click(function () {
         let radius = parseFloat($("[name='distance-slider']").val(), 10);
-
-        getLocation(function(position) {
-            var posLat = position.coords.latitude;
-            var posLng = position.coords.longitude;
-            Finder.getAllStationsInRadius(posLat, posLng, radius, function (err, coords) {
-                Map.removeMarkers();
-                Map.addMarker(posLat, posLng, Map.ICON_CAR);
-
-                let bestMatch = coords[0];
-                if(!bestMatch) {
-                    alert("Ups, wir konnten keine Station finden.");
-                    return;
-                }
-
-                Map.showLocationTo(posLat, posLng, bestMatch.lat, bestMatch.lng);
-
-                coords.forEach(function (coord) {
-                    Map.addMarker(coord.lat, coord.lng, Map.ICON_STATION);
-                });
-
-                $(".Panel").panel("close");
-            });
+        setMarker(radius, function () {
+            $(".Panel").panel("close");
         });
     });
 
