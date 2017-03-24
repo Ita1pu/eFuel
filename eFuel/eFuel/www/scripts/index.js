@@ -9,76 +9,21 @@ function getLocation(callback) {
         });
 }
 
-var map;
-
-function initMap() {
-    getLocation(function (position) {
-        var point = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-        };
-        map = new google.maps.Map(document.getElementById("Map__container"), {
-            center: point,
-            zoom: 13,
-            streetViewControl: false,
-            mapTypeControl: false,
-            fullscreenControl: false,
-            styles: [{
-                featureType: "poi",
-                elementType: "labels",
-                stylers: [{
-                    visibility: "off"
-                }]
-            }, {
-                featureType: "landscape",
-                elementType: "labels",
-                stylers: [{
-                    "visibility": "off"
-                }]
-            }]
-        });
-    });
-}
-
-var markers = [];
-
-function addMarker(lat, lng, icon) {
-    var point = {
-        lat: lat,
-        lng: lng
-    };
-
-    var marker = new google.maps.Marker({
-        position: point,
-        map: map,
-        title: "Point",
-        icon: icon
-    });
-
-    markers.push(marker);
-}
-
-function removeMarkers() {
-    for (var i = 0; i < markers.length; i++) {
-        markers[i].setMap(null);
-    }
-}
-
 function addCarMarker(lat, lng) {
-    addMarker(lat, lng, "images/car.svg");
+    Map.addMarker(lat, lng, Map.ICON_CAR);
 }
 
 function addStationMarker(lat, lng) {
-    addMarker(lat, lng, "images/station.svg");
+    Map.addMarker(lat, lng, Map.ICON_STATION);
 }
 
-function refresh() {
+function refreshLocation() {
     getLocation(function (position) {
         var fuelRange = position.coords.speed; // fuel range in km
 
         removeMarkers();
         addCarMarker(position.coords.latitude, position.coords.longitude);
-        
+
         // add station marker
     });
 }
@@ -91,7 +36,7 @@ function onDeviceReady() {
     document.addEventListener('pause', onPause.bind(this), false);
     document.addEventListener('resume', onResume.bind(this), false);
 
-    refresh();
+    refreshLocation();
 };
 
 function onPause() {};
