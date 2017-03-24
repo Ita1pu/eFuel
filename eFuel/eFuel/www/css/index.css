@@ -1,33 +1,28 @@
-html,
-        body {
-            margin: 0;
-            padding: 0;
+html, body {
+    margin: 0;
+    padding: 0;
+    user-select: none;
+}
 
-            user-select: none;
-        }
+html, body, .Page, .ui-panel-wrapper, .ui-content, #Map__container {
+    height: 100%;
+}
 
-        html,
-        body,
-        .Page,
-        .ui-panel-wrapper,
-        .ui-content,
-        #Map__container {
-            height: 100%;
-        }
+.Panel__main-view {
+    /* Overwrite padding from .ui-content */
+    padding: 0 !important;
+}
 
+.Panel__toggle-btn {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    font-size: 1.5rem;
+    margin: 0.5em;
+    cursor: pointer;
+}
 
-        .Panel__main-view {
-            /* Overwrite padding from .ui-content */
-            padding: 0 !important;
-        }
-
-        .Panel__toggle-btn {
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 1;
-            font-size: 1.5rem;
-            margin: 0.5em;
-
-            cursor: pointer;            
-        }
+.SearchPopup__submit {
+    margin-right: 0;
+}
