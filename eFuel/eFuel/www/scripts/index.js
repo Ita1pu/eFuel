@@ -1,9 +1,4 @@
-﻿// Eine Einführung zur leeren Vorlage finden Sie in der folgenden Dokumentation:
-// http://go.microsoft.com/fwlink/?LinkID=397704
-// So debuggen Sie Code beim Seitenladen in Ripple oder auf Android-Geräten/-Emulatoren: Starten Sie die App, legen Sie Haltepunkte fest,
-// und führen Sie dann "window.location.reload()" in der JavaScript-Konsole aus.
-
-"use strict";
+﻿"use strict";
 
 document.addEventListener('deviceready', onDeviceReady.bind(this), false);
 
@@ -79,6 +74,8 @@ function addStationMarker(lat, lng) {
 
 function refresh() {
     getLocation(function (position) {
+        var fuelRange = position.coords.speed; // fuel range in km
+
         removeMarkers();
         addCarMarker(position.coords.latitude, position.coords.longitude);
         
@@ -88,7 +85,7 @@ function refresh() {
 
 function onDeviceReady() {
     $(".Panel__toggle-btn").click(function () {
-        $(".Panel").panel("toggle")
+        $(".Panel").panel("toggle");
     });
 
     document.addEventListener('pause', onPause.bind(this), false);
@@ -97,10 +94,6 @@ function onDeviceReady() {
     refresh();
 };
 
-function onPause() {
-    // TODO: Diese Anwendung wurde ausgesetzt. Speichern Sie hier den Anwendungszustand.
-};
+function onPause() {};
 
-function onResume() {
-    // TODO: Diese Anwendung wurde erneut aktiviert. Stellen Sie hier den Anwendungszustand wieder her
-};
+function onResume() {};
