@@ -4,12 +4,10 @@
 <head>
     <title>eFuel</title>
 
-    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-
     <meta name="format-detection" content="telephone=no">
     <meta name="msapplication-tap-highlight" content="no">
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
-    
+
     <meta name="viewport" content="initial-scale=1.0">
     <meta charset="utf-8">
 
@@ -39,16 +37,16 @@
 
             <a href="#connect-popup" data-rel="popup" data-position-to="window" data-transition="pop" class="ui-btn ui-icon-gear ui-btn-icon-left">Auto verbinden</a>
             <a href="#search-popup" data-rel="popup" data-position-to="window" data-transition="pop" class="ui-btn ui-icon-search ui-btn-icon-left">Tankstellen suchen</a>
-            <a href="#" class="ui-btn ui-icon-info ui-btn-icon-left">Über eFuel</a>
+            <a href="#" class="ui-btn ui-icon-info ui-btn-icon-left">&Uuml;ber eFuel</a>
         </div>
 
         <div data-role="popup" id="connect-popup" data-overlay-theme="a" style="max-width:400px;">
             <div role="main" class="ui-content">
-                <p>Bluetooth-Geräte werden gesucht...</p>
+                <p>Bluetooth-Ger&auml;te werden gesucht...</p>
             </div>
         </div>
 
-        <div data-role="popup" id="search-popup" data-overlay-theme="a" style="min-width:400px;">
+        <div data-role="popup" id="search-popup" data-overlay-theme="a">
             <div role="main" class="ui-content">
                 <form>
                     <div class="ui-field-contain">
@@ -62,13 +60,16 @@
                     </div>
 
                     <div class="ui-field-contain">
-                        <label for="distance-slider">Max. Distanz:</label>
+                        <label for="distance-slider">Max. Distanz (km):</label>
                         <input type="range" name="distance-slider" id="distance-slider" value="50" min="0" max="100">
                     </div>
+
+                    <a href="#" class="ui-btn ui-corner-all ui-btn-inline ui-btn-a" data-rel="back">Abbrechen</a>
+                    <a href="#" class="SearchPopup__submit ui-btn ui-corner-all ui-btn-inline ui-btn-b" data-icon="search" data-iconpos="right" data-rel="back">Suchen</a>
                 </form>
             </div>
         </div>
-    </div>    
+    </div>
 </body>
 
 </html>
