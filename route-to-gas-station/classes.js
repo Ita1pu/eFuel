@@ -29,7 +29,7 @@ Station.prototype.getAllPlugs = function()
 {
 	return this.arrPlugs;
 }
-Station.prototype.getPlug = function(int id)
+Station.prototype.getPlug = function(id)
 {
 	return this.arrPlugs[id];
 }
@@ -79,7 +79,6 @@ Plugs.prototype.getPower = function()
 {
 	return this.power;
 }
-
 
 function Address(street, streetNo, zip, city, country)
 {
