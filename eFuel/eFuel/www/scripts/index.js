@@ -42,10 +42,6 @@
         }
 
         navigator.geolocation.getCurrentPosition(onSuccess, onError);
-
-        if (cordova.backgroundapp.resumeType == 'launch') {
-            renderUi();
-        }
     };
 
     function onPause() {
@@ -53,14 +49,7 @@
     };
 
     function onResume() {
-        // TODO: Diese Anwendung wurde erneut aktiviert. Stellen Sie hier den Anwendungszustand wieder her.
-        if (cordova.backgroundapp.resumeType == 'normal-launch') {
-            renderUi();
-        } else if (cordova.backgroundapp.resumeType == 'programmatic-launch') {
-            // You launched programatically (through cordova.backgroundapp.show() perhaps)
-            // so you should have already called renderUi() from where you called .show().
-        }
-
+        // TODO: Diese Anwendung wurde erneut aktiviert. Stellen Sie hier den Anwendungszustand wieder her
     };
 
     

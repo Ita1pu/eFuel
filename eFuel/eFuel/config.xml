@@ -113,6 +113,15 @@
   <plugin name="de.appplant.cordova.plugin.local-notification" version="0.8.4" />
   <plugin name="cordova-plugin-x-toast" version="2.6.0" />
   <plugin name="cordova-plugin-geolocation" version="2.4.2" />
-  <plugin name="cordova-plugin-background-app" version="2.0.2" />
   <plugin name="cordova-plugin-android-permissions" version="0.10.0" />
+  <config-file target="AndroidManifest.xml" parent="/manifest">
+    <uses-permission name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission name="com.google.android.gms.permission.ACTIVITY_RECOGNITION" />
+    <uses-permission name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission name="android.permission.INTERNET" />
+    <uses-permission name="android.permission.WAKE_LOCK" />
+  </config-file>
+  <plugin name="cordova-plugin-compat" version="1.1.0" />
 </widget>
