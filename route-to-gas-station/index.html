@@ -16,13 +16,11 @@
 
                 </section>
             </div>
-			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-			
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+            
             <script type="text/javascript">
-
                 function loadArticle1() {
                     var text;
-
                     $.ajax({
                         url: "article1.title.txt",
                         async: true,
@@ -32,34 +30,31 @@
                            document.getElementById("title-article1").innerHTML=data;
                         }
                     });
-					
-					var getJSON = function(url) {
-					  return new Promise(function(resolve, reject) {
-						var xhr = new XMLHttpRequest();
-						xhr.open('get', url, true);
-						xhr.responseType = 'json';
-						xhr.onload = function() {
-						  var status = xhr.status;
-						  if (status == 200) {
-							resolve(xhr.response);
-						  } else {
-							reject(status);
-						  }
-						};
-						xhr.send();
-					  });
-					};
-
-					getJSON('https://api.goingelectric.de/chargepoints/pluglist/?key=2a83e75cf3ceb116f8f70a553586d9d0').then(function(data) {
-						alert('Your Json result is:  ' + data.result); //you can comment this, i used it to debug
-
-						result.innerText = data.result; //display the result in an HTML element
-					}, function(status) { //error detection....
-					  alert('Something went wrong.');
-					});
-
+                    
+                    var getJSON = function(url) {
+                      return new Promise(function(resolve, reject) {
+                        var xhr = new XMLHttpRequest();
+                        xhr.open('get', url, true);
+                        xhr.responseType = 'json';
+                        xhr.onload = function() {
+                          var status = xhr.status;
+                          if (status == 200) {
+                            resolve(xhr.response);
+                          } else {
+                            reject(status);
+                          }
+                        };
+                        xhr.send();
+                      });
+                    };
+                    getJSON('https://api.goingelectric.de/chargepoints/?key=2a83e75cf3ceb116f8f70a553586d9d0&sw_lng=12.488927&sw_lat=49.012824&open_now=1&min_power=22&orderby=distance&ne_lng=12.588927&ne_lat=50.012824').then(function(data) {
+                        alert('Your Json result is:  ' + data.result); //you can comment this, i used it to debug
+                        document.getElementById("title-article1").innerHTML="hello"; //display the result in an HTML element
+                        result.innerText = data[0].result; //display the result in an HTML element
+                    }, function(status) { //error detection....
+                      alert('Something went wrong.');
+                    });
                 }
-
                 
                 $(function(){
                     loadArticle1();

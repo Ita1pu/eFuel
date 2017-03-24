@@ -29,7 +29,7 @@ Station.prototype.getAllPlugs = function()
 {
 	return this.arrPlugs;
 }
-Station.prototype.getPlug = function(int id)
+Station.prototype.getPlug = function(id)
 {
 	return this.arrPlugs[id];
 }
