@@ -4,6 +4,8 @@
     var markersToDraw = [];
     var markers = [];
     var map = null;
+    var directionsRenderer = null;
+    var directionsService = null;
 
     var Map = window.Map = {
         ICON_CAR: "images/car.svg",
@@ -35,6 +37,19 @@
             }
 
             markers = [];
+        },
+
+        showLocationTo: function(fromLat, fromLng, toLat, toLng) {
+            var request = {
+                origin: { lat: fromLat, lng: fromLng },
+                destination: { lat: toLat, lng: toLng },
+                travelMode: google.maps.TravelMode.DRIVING
+            };
+            directionsService.route(request, function(result, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsRenderer.setDirections(result);
+                }
+            });
         }
     }
 
@@ -65,6 +80,10 @@
                     }]
                 }]
             });
+
+            directionsService = new google.maps.DirectionsService();
+            directionsRenderer = new google.maps.DirectionsRenderer();
+            directionsRenderer.setMap(map);
 
             mapInitialized = true;
 

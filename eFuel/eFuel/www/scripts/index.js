@@ -41,16 +41,27 @@ function onDeviceReady() {
     $(".SearchPopup__submit").click(function () {
         let radius = parseFloat($("[name='distance-slider']").val(), 10);
 
-        // TODO get coords from actual position
+        getLocation(function(position) {
+            var posLat = position.coords.latitude;
+            var posLng = position.coords.longitude;
+            Finder.getAllStationsInRadius(posLat, posLng, radius, function (err, coords) {
+                Map.removeMarkers();
+                Map.addMarker(posLat, posLng, Map.ICON_CAR);
 
-        Finder.getAllStationsInRadius(49, 12, radius, function (err, coords) {
-            Map.removeMarkers();
+                let bestMatch = coords[0];
+                if(!bestMatch) {
+                    alert("Ups, wir konnten keine Station finden.");
+                    return;
+                }
 
-            coords.forEach(function (coord) {
-                Map.addMarker(coord.lat, coord.lng, Map.ICON_STATION);
+                Map.showLocationTo(posLat, posLng, bestMatch.lat, bestMatch.lng);
+
+                coords.forEach(function (coord) {
+                    Map.addMarker(coord.lat, coord.lng, Map.ICON_STATION);
+                });
             });
         });
-    })
+    });
 
     document.addEventListener('pause', onPause.bind(this), false);
     document.addEventListener('resume', onResume.bind(this), false);

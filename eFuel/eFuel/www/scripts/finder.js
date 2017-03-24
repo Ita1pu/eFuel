@@ -3,9 +3,7 @@
         getAllStationsInRadius: function(lat, lng, radius, callback) {
             var API_Key = '2a83e75cf3ceb116f8f70a553586d9d0'
             var listOfChargepoints;
-            var radius = radius;
-            var lat = lat;
-            var lng = lng;
+
             var getJSON = function(url) {
                 return new Promise(function(resolve, reject) {
                     var xhr = new XMLHttpRequest();
