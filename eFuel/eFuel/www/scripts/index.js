@@ -4,7 +4,7 @@
 // und führen Sie dann "window.location.reload()" in der JavaScript-Konsole aus.
 
 "use strict";
-    
+
 document.addEventListener('deviceready', onDeviceReady.bind(this), false);
 
 function getLocation(callback) {
@@ -16,8 +16,9 @@ function getLocation(callback) {
 
 var map;
 
-function initMap() { 
+function initMap() {
     getLocation(function (position) {
+        debugger
         var point = {
             lat: position.coords.latitude,
             lng: position.coords.longitude
@@ -27,6 +28,7 @@ function initMap() {
             zoom: 13,
             streetViewControl: false,
             mapTypeControl: false,
+            fullscreenControl: false,
             styles: [{
                 featureType: "poi",
                 elementType: "labels",
@@ -41,10 +43,9 @@ function initMap() {
                 }]
             }]
         });
+
+        addMarker(49.012499, 12.088931);
     });
-
-
-    
 
     /*
     var directionsRenderer, directionsService;
@@ -80,7 +81,8 @@ function addMarker(lat, lng) {
     var marker = new google.maps.Marker({
         position: point,
         map: map,
-        title: "Point"
+        title: "Point",
+        icon: "images/icons/ic_power_black_24dp_1x.png"
     });
 }
 
@@ -91,8 +93,6 @@ function onDeviceReady() {
 
     document.addEventListener('pause', onPause.bind(this), false);
     document.addEventListener('resume', onResume.bind(this), false);
-
-    addMarker(49.012499, 12.088931);
 
     /*getLocation(function (position) {
         alert('Latitude: ' + position.coords.latitude + '\n' +
