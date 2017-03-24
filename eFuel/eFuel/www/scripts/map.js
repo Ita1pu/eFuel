@@ -38,38 +38,40 @@
         }
     }
 
-    window.onGoogleMapsReady = function() {
-        var point = {
-            lat: 49.012499,
-            lng: 12.088931
-        }
+    window.onGoogleMapsReady = function () {
+        getLocation(function (position) {
+            var point = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            }
 
-        map = new google.maps.Map(document.getElementById("Map__container"), {
-            center: point,
-            zoom: 13,
-            streetViewControl: false,
-            mapTypeControl: false,
-            fullscreenControl: false,
-            styles: [{
-                featureType: "poi",
-                elementType: "labels",
-                stylers: [{
-                    visibility: "off"
+            map = new google.maps.Map(document.getElementById("Map__container"), {
+                center: point,
+                zoom: 13,
+                streetViewControl: false,
+                mapTypeControl: false,
+                fullscreenControl: false,
+                styles: [{
+                    featureType: "poi",
+                    elementType: "labels",
+                    stylers: [{
+                        visibility: "off"
+                    }]
+                }, {
+                    featureType: "landscape",
+                    elementType: "labels",
+                    stylers: [{
+                        "visibility": "off"
+                    }]
                 }]
-            }, {
-                featureType: "landscape",
-                elementType: "labels",
-                stylers: [{
-                    "visibility": "off"
-                }]
-            }]
+            });
+
+            mapInitialized = true;
+
+            markersToDraw.forEach(function (marker) {
+                Map.addMarker.apply(Map, marker)
+            })
         });
-
-        mapInitialized = true;
-
-        markersToDraw.forEach(function(marker) {
-            Map.addMarker.apply(Map, marker)
-        })
     }
 
 })(window);
