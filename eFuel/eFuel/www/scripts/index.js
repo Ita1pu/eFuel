@@ -36,6 +36,14 @@ function onDeviceReady() {
         $(".Panel").panel("toggle")
     });
 
+    $(".SearchPopup__submit").click(function() {
+        Finder.getAllStationsInRadius(49, 12, 13, function(err, coords) {
+            coords.forEach(function(coord) {
+                Map.addMarker(coord.lat, coord.lng, Map.ICON_STATION);
+            })
+        })
+    })
+
     document.addEventListener('pause', onPause.bind(this), false);
     document.addEventListener('resume', onResume.bind(this), false);
 
