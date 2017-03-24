@@ -59,6 +59,8 @@ function onDeviceReady() {
                 coords.forEach(function (coord) {
                     Map.addMarker(coord.lat, coord.lng, Map.ICON_STATION);
                 });
+
+                $(".Panel").panel("close");
             });
         });
     });
