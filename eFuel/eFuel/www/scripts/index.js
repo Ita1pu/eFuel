@@ -82,7 +82,7 @@ function addMarker(lat, lng) {
         position: point,
         map: map,
         title: "Point",
-        icon: "images/icons/ic_power_black_24dp_1x.png"
+        icon: "images/station.png"
     });
 }
 
