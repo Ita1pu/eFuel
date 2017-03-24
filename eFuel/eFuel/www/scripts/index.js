@@ -18,7 +18,6 @@ var map;
 
 function initMap() {
     getLocation(function (position) {
-        debugger
         var point = {
             lat: position.coords.latitude,
             lng: position.coords.longitude

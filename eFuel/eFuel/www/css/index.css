@@ -18,8 +18,8 @@ html, body, .Page, .ui-panel-wrapper, .ui-content, #Map__container {
     top: 0;
     left: 0;
     z-index: 1;
-    font-size: 1.5rem;
-    margin: 0.5em;
+    height: 2em;
+    margin: 1em;
     cursor: pointer;
 }
 
