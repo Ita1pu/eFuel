@@ -55,48 +55,46 @@
     }
 
     window.onGoogleMapsReady = function () {
-        getLocation(function (position) {
-            var point = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude
-            }
+        var point = {
+            lat: 49.0150985,
+            lng: 12.091399,
+        }
 
-            map = new google.maps.Map(document.getElementById("Map__container"), {
-                center: point,
-                zoom: 13,
-                streetViewControl: false,
-                mapTypeControl: false,
-                fullscreenControl: false,
-                styles: [{
-                    featureType: "poi",
-                    elementType: "labels",
-                    stylers: [{
-                        visibility: "off"
-                    }]
-                }, {
-                    featureType: "landscape",
-                    elementType: "labels",
-                    stylers: [{
-                        "visibility": "off"
-                    }]
+        map = new google.maps.Map(document.getElementById("Map__container"), {
+            center: point,
+            zoom: 13,
+            streetViewControl: false,
+            mapTypeControl: false,
+            fullscreenControl: false,
+            styles: [{
+                featureType: "poi",
+                elementType: "labels",
+                stylers: [{
+                    visibility: "off"
                 }]
-            });
-
-            directionsService = new google.maps.DirectionsService();
-            directionsRenderer = new google.maps.DirectionsRenderer();
-            directionsRenderer.setOptions({
-                markerOptions: {
-                    icon: Map.ICON_EMPTY,
-                }
-            })
-            directionsRenderer.setMap(map);
-
-            mapInitialized = true;
-
-            markersToDraw.forEach(function (marker) {
-                Map.addMarker.apply(Map, marker)
-            })
+            }, {
+                featureType: "landscape",
+                elementType: "labels",
+                stylers: [{
+                    "visibility": "off"
+                }]
+            }]
         });
+
+        directionsService = new google.maps.DirectionsService();
+        directionsRenderer = new google.maps.DirectionsRenderer();
+        directionsRenderer.setOptions({
+            markerOptions: {
+                icon: Map.ICON_EMPTY,
+            }
+        })
+        directionsRenderer.setMap(map);
+
+        mapInitialized = true;
+
+        markersToDraw.forEach(function (marker) {
+            Map.addMarker.apply(Map, marker)
+        })
     }
 
 })(window);
