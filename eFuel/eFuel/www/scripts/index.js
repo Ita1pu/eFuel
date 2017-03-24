@@ -18,7 +18,6 @@ var map;
 
 function initMap() {
     getLocation(function (position) {
-        debugger
         var point = {
             lat: position.coords.latitude,
             lng: position.coords.longitude
@@ -44,7 +43,7 @@ function initMap() {
             }]
         });
 
-        addMarker(49.012499, 12.088931);
+        addCarMarker(position.coords.latitude, position.coords.longitude);
     });
 
     /*
@@ -72,7 +71,7 @@ function initMap() {
     });*/
 }
 
-function addMarker(lat, lng) {
+function addMarker(lat, lng, icon) {
     var point = {
         lat: lat,
         lng: lng
@@ -82,8 +81,16 @@ function addMarker(lat, lng) {
         position: point,
         map: map,
         title: "Point",
-        icon: "images/station.png"
+        icon: icon
     });
+}
+
+function addCarMarker(lat, lng) {
+    addMarker(lat, lng, "images/car.svg");
+}
+
+function addStationMarker(lat, lng) {
+    addMarker(lat, lng, "images/station.svg");
 }
 
 function onDeviceReady() {
@@ -93,17 +100,6 @@ function onDeviceReady() {
 
     document.addEventListener('pause', onPause.bind(this), false);
     document.addEventListener('resume', onResume.bind(this), false);
-
-    /*getLocation(function (position) {
-        alert('Latitude: ' + position.coords.latitude + '\n' +
-      'Longitude: ' + position.coords.longitude + '\n' +
-      'Altitude: ' + position.coords.altitude + '\n' +
-      'Accuracy: ' + position.coords.accuracy + '\n' +
-      'Altitude Accuracy: ' + position.coords.altitudeAccuracy + '\n' +
-      'Heading: ' + position.coords.heading + '\n' +
-      'Speed: ' + position.coords.speed + '\n' +
-      'Timestamp: ' + position.timestamp + '\n');
-    });*/
 };
 
 function onPause() {
