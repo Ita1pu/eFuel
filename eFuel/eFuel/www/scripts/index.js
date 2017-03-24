@@ -42,34 +42,10 @@ function initMap() {
                 }]
             }]
         });
-
-        addCarMarker(position.coords.latitude, position.coords.longitude);
     });
-
-    /*
-    var directionsRenderer, directionsService;
-    directionsService = new google.maps.DirectionsService();
-    directionsRenderer = new google.maps.DirectionsRenderer();
-    directionsRenderer.setMap(map);
-
-    var marker = new google.maps.Marker({
-        position: point,
-        map: map,
-        title: "Point",
-        icon: "images/icons/ic_power_black_24dp_1x.png"
-    });
-
-    var request = {
-        origin: point,
-        destination: "Regensburg Ruderzentrum",
-        travelMode: google.maps.TravelMode.WALKING
-    };
-    directionsService.route(request, function (result, status) {
-        if (status == google.maps.DirectionsStatus.OK) {
-            directionsRenderer.setDirections(result);
-        }
-    });*/
 }
+
+var markers = [];
 
 function addMarker(lat, lng, icon) {
     var point = {
@@ -83,6 +59,14 @@ function addMarker(lat, lng, icon) {
         title: "Point",
         icon: icon
     });
+
+    markers.push(marker);
+}
+
+function removeMarkers() {
+    for (var i = 0; i < markers.length; i++) {
+        markers[i].setMap(null);
+    }
 }
 
 function addCarMarker(lat, lng) {
@@ -93,6 +77,15 @@ function addStationMarker(lat, lng) {
     addMarker(lat, lng, "images/station.svg");
 }
 
+function refresh() {
+    getLocation(function (position) {
+        removeMarkers();
+        addCarMarker(position.coords.latitude, position.coords.longitude);
+        
+        // add station marker
+    });
+}
+
 function onDeviceReady() {
     $(".Panel__toggle-btn").click(function () {
         $(".Panel").panel("toggle")
@@ -100,6 +93,8 @@ function onDeviceReady() {
 
     document.addEventListener('pause', onPause.bind(this), false);
     document.addEventListener('resume', onResume.bind(this), false);
+
+    refresh();
 };
 
 function onPause() {
