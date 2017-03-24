@@ -21,7 +21,7 @@ function refreshLocation() {
     getLocation(function (position) {
         var fuelRange = position.coords.speed; // fuel range in km
 
-        removeMarkers();
+        Map.removeMarkers();
         addCarMarker(position.coords.latitude, position.coords.longitude);
 
         // add station marker
