@@ -22,11 +22,15 @@
             };
             getJSON('https://api.goingelectric.de/chargepoints/?key=' + API_Key +
                 '&lng=' + lng + '&lat=' + lat + '&radius=' + radius + '&orderby=distance&plugs=' + plugType).then(function(data) {
-                    var coords = data.chargelocations.map(function(chargelocation) {
-                        return chargelocation.coordinates;
+                    var stations = data.chargelocations.map(function(chargelocation) {
+                        return {
+                            lat: chargelocation.coordinates.lat,
+                            lng: chargelocation.coordinates.lng,
+                            name: chargelocation.name,
+                        }
                     });
 
-                    callback(null, coords);
+                    callback(null, stations);
             }, function(status) { //error detection....
                 alert('Something went wrong.');
             });

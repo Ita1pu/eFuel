@@ -34,8 +34,8 @@ function setMarker(radius, plugType, showRoute) {
                     Map.showLocationTo(position.coords.latitude, position.coords.longitude, bestMatch.lat, bestMatch.lng);
                 }
 
-                stations.forEach(function(stations) {
-                    Map.addMarker(stations.lat, stations.lng, Map.ICON_STATION);
+                stations.forEach(function(station) {
+                    Map.addMarker(station.lat, station.lng, Map.ICON_STATION, station.name);
                 });
             });
     });
