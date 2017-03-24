@@ -11,6 +11,7 @@
     var Map = window.Map = {
         ICON_CAR: "images/car.svg",
         ICON_STATION: "images/station.svg",
+        ICON_GASSTATION: "images/gasstation.svg",
         ICON_EMPTY: "images/empty.svg",
 
         addMarker: function(lat, lng, icon, infoText) {
@@ -65,6 +66,7 @@
                 },
                 travelMode: google.maps.TravelMode.DRIVING
             };
+
             directionsService.route(request, function(result, status) {
                 if (status == google.maps.DirectionsStatus.OK) {
                     directionsRenderer.setDirections(result);

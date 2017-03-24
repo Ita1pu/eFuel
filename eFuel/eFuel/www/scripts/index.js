@@ -18,9 +18,12 @@ function addStationMarker(lat, lng) {
 }
 
 function setMarker(radius, plugType, showRoute) {
+    $.mobile.loading("show");
     getLocation(function(position) {
         Finder.getAllStationsInRadius(position.coords.latitude, position.coords.longitude, radius, plugType,
             function(err, stations) {
+                $.mobile.loading("hide");
+
                 Map.removeMarkers();
                 Map.addMarker(position.coords.latitude, position.coords.longitude, Map.ICON_CAR);
 
@@ -35,7 +38,12 @@ function setMarker(radius, plugType, showRoute) {
                 }
 
                 stations.forEach(function(station) {
-                    Map.addMarker(station.lat, station.lng, Map.ICON_STATION, station.name);
+                    Map.addMarker(
+                        station.lat,
+                        station.lng,
+                        station.isElectro ? Map.ICON_STATION : Map.ICON_GASSTATION,
+                        station.name
+                    );
                 });
             });
     });
