@@ -78,9 +78,12 @@
                     </div>
 
                     <div class="ui-field-contain">
-                        <label for="distance-slider">Max. Distanz:</label>
+                        <label for="distance-slider">Max. Distanz (km):</label>
                         <input type="range" name="distance-slider" id="distance-slider" value="50" min="0" max="100">
                     </div>
+
+                    <a href="#" class="ui-btn ui-corner-all ui-btn-inline ui-btn-a" data-rel="back">Abbrechen</a>
+                    <a href="#" class="SearchPopup__submit ui-btn ui-corner-all ui-btn-inline ui-btn-b ui-btn-right" data-icon="search" data-iconpos="right" data-rel="back" style="top: initial">Suchen</a>
                 </form>
             </div>
         </div>
@@ -91,6 +94,10 @@
 
             $(".Panel__toggle-btn").click(function() {
                 $(".Panel").panel("toggle")
+            });
+
+            $(".SearchPopup__submit").click(function() {
+                $.mobile.loading("show")
             });
         });
         var map;
