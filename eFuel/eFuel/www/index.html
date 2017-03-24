@@ -2,59 +2,28 @@
 <html>
 
 <head>
-    <title>Simple Map</title>
-
+    <title>eFuel</title>
 
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-
 
     <meta name="format-detection" content="telephone=no">
     <meta name="msapplication-tap-highlight" content="no">
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
-
-
-
+    
     <meta name="viewport" content="initial-scale=1.0">
     <meta charset="utf-8">
-    <style>
-        html,
-        body {
-            margin: 0;
-            padding: 0;
-        }
-
-        html,
-        body,
-        .Page,
-        .ui-panel-wrapper,
-        .ui-content,
-        #Map__container {
-            height: 100%;
-        }
-
-
-        .Panel__main-view {
-            /* Overwrite padding from .ui-content */
-            padding: 0 !important;
-        }
-
-        .Panel__toggle-btn {
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 1;
-            font-size: 1.5rem;
-            margin: 0.5em;
-        }
-    </style>
 
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    <link rel="stylesheet" href="css/index.css" />
+
     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 
-    <!--<script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="scripts/platformOverrides.js"></script>
-    <script type="text/javascript" src="scripts/index.js"></script>-->
+    <script type="text/javascript" src="scripts/index.js"></script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjhd6348LSC3_Oyw3FAzH2mvpS5v0GLyg&callback=initMap" async defer></script>
 </head>
 
 <body>
@@ -99,67 +68,7 @@
                 </form>
             </div>
         </div>
-    </div>
-    <script>
-        $(document).on("pagecreate", function() {
-            //$(".Panel").panel("open");
-
-            $(".Panel__toggle-btn").click(function() {
-                $(".Panel").panel("toggle")
-            });
-        });
-        var map;
-        var directionsRenderer, directionsService;
-
-        function initMap() {
-            var point = {
-                lat: 49.012499,
-                lng: 12.088931
-            };
-            map = new google.maps.Map(document.getElementById("Map__container"), {
-                center: point,
-                zoom: 13,
-                streetViewControl: false,
-                mapTypeControl: false,
-                styles: [{
-                    featureType: "poi",
-                    elementType: "labels",
-                    stylers: [{
-                        visibility: "off"
-                    }]
-                }, {
-                    featureType: "landscape",
-                    elementType: "labels",
-                    stylers: [{
-                        "visibility": "off"
-                    }]
-                }]
-            });
-
-            directionsService = new google.maps.DirectionsService();
-            directionsRenderer = new google.maps.DirectionsRenderer();
-            directionsRenderer.setMap(map);
-
-            var marker = new google.maps.Marker({
-                position: point,
-                map: map,
-                title: "Point"
-            });
-
-            var request = {
-                origin: point,
-                destination: "Regensburg Ruderzentrum",
-                travelMode: google.maps.TravelMode.WALKING
-            };
-            directionsService.route(request, function(result, status) {
-                if (status == google.maps.DirectionsStatus.OK) {
-                    directionsRenderer.setDirections(result);
-                }
-            });
-
-        }
-    </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjhd6348LSC3_Oyw3FAzH2mvpS5v0GLyg&callback=initMap" async defer></script>
+    </div>    
 </body>
 
 </html>
