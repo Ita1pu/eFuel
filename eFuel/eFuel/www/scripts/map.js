@@ -10,6 +10,7 @@
     var Map = window.Map = {
         ICON_CAR: "images/car.svg",
         ICON_STATION: "images/station.svg",
+        ICON_EMPTY: "images/empty.svg",
 
         addMarker: function(lat, lng, icon) {
             if(!mapInitialized) {
@@ -83,6 +84,11 @@
 
             directionsService = new google.maps.DirectionsService();
             directionsRenderer = new google.maps.DirectionsRenderer();
+            directionsRenderer.setOptions({
+                markerOptions: {
+                    icon: Map.ICON_EMPTY,
+                }
+            })
             directionsRenderer.setMap(map);
 
             mapInitialized = true;
