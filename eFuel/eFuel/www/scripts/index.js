@@ -21,10 +21,15 @@ function refreshLocation() {
     getLocation(function (position) {
         var fuelRange = position.coords.speed; // fuel range in km
 
-        Map.removeMarkers();
-        addCarMarker(position.coords.latitude, position.coords.longitude);
+        Map.removeMarkers();        
 
-        // add station marker
+        Finder.getAllStationsInRadius(position.coords.latitude, position.coords.longitude, fuelRange, function (err, coords) {
+            coords.forEach(function (coord) {
+                Map.addMarker(coord.lat, coord.lng, Map.ICON_STATION);
+            });
+        });
+
+        addCarMarker(position.coords.latitude, position.coords.longitude);
     });
 }
 
@@ -33,12 +38,15 @@ function onDeviceReady() {
         $(".Panel").panel("toggle");
     });
 
-    $(".SearchPopup__submit").click(function() {
-        Finder.getAllStationsInRadius(49, 12, 13, function(err, coords) {
-            coords.forEach(function(coord) {
+    $(".SearchPopup__submit").click(function () {
+
+        // TODO get radius from dialog and coords from actual position
+
+        Finder.getAllStationsInRadius(49, 12, 13, function (err, coords) {
+            coords.forEach(function (coord) {
                 Map.addMarker(coord.lat, coord.lng, Map.ICON_STATION);
-            })
-        })
+            });
+        });
     })
 
     document.addEventListener('pause', onPause.bind(this), false);

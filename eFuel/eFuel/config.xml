@@ -127,4 +127,5 @@
   <access origin="*" />
   <allow-navigation href="*" />
   <access origin="*" subdomains="true" />
+  <plugin name="cordova-plugin-vibration" version="2.1.4" />
 </widget>
