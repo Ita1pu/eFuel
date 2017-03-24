@@ -4,7 +4,7 @@ document.addEventListener('deviceready', onDeviceReady.bind(this), false);
 
 function getLocation(callback) {
     navigator.geolocation.getCurrentPosition(callback,
-        function (eror) {
+        function(eror) {
             alert("Error getting golocation!");
         });
 }
@@ -17,22 +17,24 @@ function addStationMarker(lat, lng) {
     Map.addMarker(lat, lng, Map.ICON_STATION);
 }
 
-function setMarker(radius, plugType, callback) {
-    getLocation(function (position) {
+function setMarker(radius, plugType, showRoute, callback) {
+    getLocation(function(position) {
         Finder.getAllStationsInRadius(position.coords.latitude, position.coords.longitude, radius, plugType,
-            function (err, stations) {
+            function(err, stations) {
                 Map.removeMarkers();
                 Map.addMarker(position.coords.latitude, position.coords.longitude, Map.ICON_CAR);
 
-                let bestMatch = stations[0];
-                if (!bestMatch) {
-                    alert("Ups, wir konnten keine Station finden.");
-                    return;
+                if (showRoute) {
+                    let bestMatch = stations[0];
+                    if (!bestMatch) {
+                        alert("Ups, wir konnten keine Station finden.");
+                        return;
+                    }
+
+                    Map.showLocationTo(position.coords.latitude, position.coords.longitude, bestMatch.lat, bestMatch.lng);
                 }
 
-                Map.showLocationTo(position.coords.latitude, position.coords.longitude, bestMatch.lat, bestMatch.lng);
-
-                stations.forEach(function (stations) {
+                stations.forEach(function(stations) {
                     Map.addMarker(stations.lat, stations.lng, Map.ICON_STATION);
                 });
 
@@ -44,19 +46,19 @@ function setMarker(radius, plugType, callback) {
 
 function refreshLocation() {
     var radius = 100; // fuel range in km
-    setMarker(radius, "");
+    setMarker(radius, "", false);
 }
 
 function onDeviceReady() {
-    $(".Panel__toggle-btn").click(function () {
+    $(".Panel__toggle-btn").click(function() {
         $(".Panel").panel("toggle");
     });
 
-    $(".SearchPopup__submit").click(function () {
+    $(".SearchPopup__submit").click(function() {
         let radius = parseFloat($("[name='distance-slider']").val(), 10);
         let plugType = $("[name='plug-type']").val();
 
-        setMarker(radius, plugType, function () {
+        setMarker(radius, plugType, true, function() {
             $(".Panel").panel("close");
         });
     });
