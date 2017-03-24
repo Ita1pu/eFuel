@@ -1,6 +1,6 @@
 ﻿// Eine Einführung zur leeren Vorlage finden Sie in der folgenden Dokumentation:
 // http://go.microsoft.com/fwlink/?LinkID=397704
-// So debuggen Sie Code beim Seitenladen in Ripple oder auf Android-Geräten/-Emulatoren: Starten Sie die App, legen Sie Haltepunkte fest, 
+// So debuggen Sie Code beim Seitenladen in Ripple oder auf Android-Geräten/-Emulatoren: Starten Sie die App, legen Sie Haltepunkte fest,
 // und führen Sie dann "window.location.reload()" in der JavaScript-Konsole aus.
 
 "use strict";
@@ -70,10 +70,10 @@ function initMap() {
     });*/
 }
 
-function addMarker() {
+function addMarker(lat, lng) {
     var point = {
-        lat: 49.012499,
-        lng: 12.088931
+        lat: lat,
+        lng: lng
     };
 
     var marker = new google.maps.Marker({
@@ -91,7 +91,7 @@ function onDeviceReady() {
     document.addEventListener('pause', onPause.bind(this), false);
     document.addEventListener('resume', onResume.bind(this), false);
 
-    addMarker();
+    addMarker(49.012499, 12.088931);
 
     /*getLocation(function (position) {
         alert('Latitude: ' + position.coords.latitude + '\n' +
@@ -112,28 +112,3 @@ function onPause() {
 function onResume() {
     // TODO: Diese Anwendung wurde erneut aktiviert. Stellen Sie hier den Anwendungszustand wieder her
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
