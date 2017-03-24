@@ -17,7 +17,7 @@ function addStationMarker(lat, lng) {
     Map.addMarker(lat, lng, Map.ICON_STATION);
 }
 
-function setMarker(radius, plugType, showRoute, callback) {
+function setMarker(radius, plugType, showRoute) {
     getLocation(function(position) {
         Finder.getAllStationsInRadius(position.coords.latitude, position.coords.longitude, radius, plugType,
             function(err, stations) {
@@ -37,9 +37,6 @@ function setMarker(radius, plugType, showRoute, callback) {
                 stations.forEach(function(stations) {
                     Map.addMarker(stations.lat, stations.lng, Map.ICON_STATION);
                 });
-
-                if (typeof callback != "undefined")
-                    callback();
             });
     });
 }
@@ -54,13 +51,15 @@ function onDeviceReady() {
         $(".Panel").panel("toggle");
     });
 
+    $(".Panel a").click(function() {
+        $(".Panel").panel("close");
+    });
+
     $(".SearchPopup__submit").click(function() {
         let radius = parseFloat($("[name='distance-slider']").val(), 10);
         let plugType = $("[name='plug-type']").val();
 
-        setMarker(radius, plugType, true, function() {
-            $(".Panel").panel("close");
-        });
+        setMarker(radius, plugType, true);
     });
 
     document.addEventListener('pause', onPause.bind(this), false);
