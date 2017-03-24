@@ -21,7 +21,7 @@ function refreshLocation() {
     getLocation(function (position) {
         var fuelRange = position.coords.speed; // fuel range in km
 
-        Map.removeMarkers();        
+        Map.removeMarkers();
 
         Finder.getAllStationsInRadius(position.coords.latitude, position.coords.longitude, fuelRange, function (err, coords) {
             coords.forEach(function (coord) {
@@ -39,10 +39,13 @@ function onDeviceReady() {
     });
 
     $(".SearchPopup__submit").click(function () {
+        let radius = parseFloat($("[name='distance-slider']").val(), 10);
 
-        // TODO get radius from dialog and coords from actual position
+        // TODO get coords from actual position
 
-        Finder.getAllStationsInRadius(49, 12, 13, function (err, coords) {
+        Finder.getAllStationsInRadius(49, 12, radius, function (err, coords) {
+            Map.removeMarkers();
+
             coords.forEach(function (coord) {
                 Map.addMarker(coord.lat, coord.lng, Map.ICON_STATION);
             });
