@@ -17,9 +17,9 @@ function addStationMarker(lat, lng) {
     Map.addMarker(lat, lng, Map.ICON_STATION);
 }
 
-function setMarker(radius, callback) {
+function setMarker(radius, plugType, callback) {
     getLocation(function (position) {
-        Finder.getAllStationsInRadius(position.coords.latitude, position.coords.longitude, radius,
+        Finder.getAllStationsInRadius(position.coords.latitude, position.coords.longitude, radius, plugType,
             function (err, stations) {
                 Map.removeMarkers();
                 Map.addMarker(position.coords.latitude, position.coords.longitude, Map.ICON_CAR);
@@ -44,7 +44,7 @@ function setMarker(radius, callback) {
 
 function refreshLocation() {
     var radius = 100; // fuel range in km
-    setMarker(radius);
+    setMarker(radius, "");
 }
 
 function onDeviceReady() {
@@ -54,7 +54,9 @@ function onDeviceReady() {
 
     $(".SearchPopup__submit").click(function () {
         let radius = parseFloat($("[name='distance-slider']").val(), 10);
-        setMarker(radius, function () {
+        let plugType = $("[name='plug-type']").val();
+
+        setMarker(radius, plugType, function () {
             $(".Panel").panel("close");
         });
     });

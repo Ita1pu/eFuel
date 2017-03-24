@@ -1,6 +1,6 @@
 (function(window) {
     var Finder = window.Finder = {
-        getAllStationsInRadius: function(lat, lng, radius, callback) {
+        getAllStationsInRadius: function(lat, lng, radius, plugType, callback) {
             var API_Key = '2a83e75cf3ceb116f8f70a553586d9d0'
             var listOfChargepoints;
 
@@ -21,7 +21,7 @@
                 });
             };
             getJSON('https://api.goingelectric.de/chargepoints/?key=' + API_Key +
-                '&lng=' + lng + '&lat=' + lat + '&radius=' + radius + '&orderby=distance').then(function(data) {
+                '&lng=' + lng + '&lat=' + lat + '&radius=' + radius + '&orderby=distance&plugs=' + plugType).then(function(data) {
                     var coords = data.chargelocations.map(function(chargelocation) {
                         return chargelocation.coordinates;
                     });
