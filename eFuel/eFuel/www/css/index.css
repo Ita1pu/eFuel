@@ -26,3 +26,16 @@ html, body, .Page, .ui-panel-wrapper, .ui-content, #Map__container {
 .SearchPopup__submit {
     margin-right: 0;
 }
+
+/* Hide Google logo */
+a[href^="http://maps.google.com/maps"] {
+    display: none !important
+}
+
+a[href^="https://maps.google.com/maps"] {
+    display: none !important
+}
+
+.gmnoprint a, .gmnoprint span, .gm-style-cc {
+    display: none;
+}
