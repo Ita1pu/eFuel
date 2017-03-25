@@ -13,14 +13,21 @@ html, body, .Page, .ui-panel-wrapper, .ui-content, #Map__container {
     padding: 0 !important;
 }
 
-.Panel__toggle-btn {
+.Panel__toggle-btn, .Panel__mittelbay-logo {
     position: absolute;
-    top: 0;
-    left: 0;
     z-index: 1;
     height: 2em;
     margin: 1em;
-    cursor: pointer;
+}
+
+.Panel__toggle-btn {
+    top: 0;
+    left: 0;
+}
+
+.Panel__mittelbay-logo {
+    bottom: 0;
+    left: 0;
 }
 
 .SearchPopup__submit {
