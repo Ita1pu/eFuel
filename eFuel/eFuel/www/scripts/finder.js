@@ -66,7 +66,14 @@
             var url = "http://karte.mittelbayerische.de/api/6/datasets/114/";
             var gasTypeShort = gasTypesShort[gasType];
 
-            getJSON(url).then(function(data) {
+            var result;
+            if(DEMO_MODUS) {
+                result = Fixtures.getRawGasStations();
+            } else {
+                result = getJSON(url);
+            }
+
+            result.then(function(data) {
                 var stations = data.entries.filter(function(entry) {
                         return entry.location != null && (gasType == "" || entry[gasTypeShort])
                     }).map(function(entry) {
@@ -98,15 +105,33 @@
                 '&plugs=' + plugType +
                 '&orderby=distance'
 
-            getJSON(url).then(function(data) {
-                var stations = data.chargelocations.map(function(location) {
-                    return {
-                        lat: location.coordinates.lat,
-                        lng: location.coordinates.lng,
-                        name: location.name,
-                        isElectro: true,
-                    }
-                });
+            var result;
+            if(DEMO_MODUS) {
+                result = Fixtures.getRawStations();
+            } else {
+                result = getJSON(url);
+            }
+
+            result.then(function(data) {
+                var stations = data.chargelocations.filter(function(entry) {
+                        return plugType === "" || entry.chargepoints.some(function(point) {
+                            return point.type === plugType
+                        })
+                    }).map(function(entry) {
+                        entry.distance = getDistanceFromLatLonInKm(lat, lng, entry.coordinates.lat, entry.coordinates.lng);
+                        return entry
+                    }).filter(function(entry) {
+                        return entry.distance < radius;
+                    }).sort(function(entry1, entry2) {
+                        return entry1.distance - entry2.distance;
+                    }).map(function(entry) {
+                        return {
+                            lat: entry.coordinates.lat,
+                            lng: entry.coordinates.lng,
+                            name: entry.name,
+                            isElectro: true,
+                        }
+                    });
 
                 callback(null, stations);
             }, function(status) { //error detection....

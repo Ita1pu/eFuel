@@ -1,6 +1,6 @@
 document.addEventListener('deviceready', onDeviceReady.bind(this), false);
 
-var DEMO_MODUS = false;
+var DEMO_MODUS = true;
 
 function getLocation(callback) {
     if(DEMO_MODUS) {
@@ -37,6 +37,8 @@ function addStationMarker(lat, lng) {
 
 function setMarker(radius, plugType, showRoute) {
     $.mobile.loading("show");
+    $(".Panel").panel("close");
+
     getLocation(function(position) {
         Finder.getAllStationsInRadius(position.lat, position.lng, radius, plugType,
             function(err, stations) {
