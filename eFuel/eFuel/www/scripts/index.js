@@ -1,12 +1,30 @@
-﻿"use strict";
-
 document.addEventListener('deviceready', onDeviceReady.bind(this), false);
 
+var DEMO_MODUS = false;
+
 function getLocation(callback) {
-    navigator.geolocation.getCurrentPosition(callback,
-        function(eror) {
-            alert("Error getting golocation!");
-        });
+    if(DEMO_MODUS) {
+        setTimeout(function() {
+            callback({
+                lat: 49.0122978,
+                lng: 12.0893348
+            });
+        }, 500);
+    } else {
+        navigator.geolocation.getCurrentPosition(
+            function(position) {
+                callback({
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude,
+                })
+            },
+            function(error) {
+                alert("Error getting golocation: " + error);
+            }, {
+                timeout: 10000
+            }
+        );
+    }
 }
 
 function addCarMarker(lat, lng) {
@@ -20,21 +38,21 @@ function addStationMarker(lat, lng) {
 function setMarker(radius, plugType, showRoute) {
     $.mobile.loading("show");
     getLocation(function(position) {
-        Finder.getAllStationsInRadius(position.coords.latitude, position.coords.longitude, radius, plugType,
+        Finder.getAllStationsInRadius(position.lat, position.lng, radius, plugType,
             function(err, stations) {
                 $.mobile.loading("hide");
 
                 Map.removeMarkers();
-                Map.addMarker(position.coords.latitude, position.coords.longitude, Map.ICON_CAR);
+                Map.addMarker(position.lat, position.lng, Map.ICON_CAR);
 
                 if (showRoute) {
-                    let bestMatch = stations[0];
+                    var bestMatch = stations[0];
                     if (!bestMatch) {
                         alert("Ups, wir konnten keine Station finden.");
                         return;
                     }
 
-                    Map.showLocationTo(position.coords.latitude, position.coords.longitude, bestMatch.lat, bestMatch.lng);
+                    Map.showLocationTo(position.lat, position.lng, bestMatch.lat, bestMatch.lng);
                 }
 
                 stations.forEach(function(station) {
@@ -63,12 +81,38 @@ function onDeviceReady() {
         $(".Panel").panel("close");
     });
 
+    $("#connect-popup").on("popupafteropen", function() {
+        setTimeout(function() {
+            $("#connect-popup .ui-content").html($("#connect-popup-content"));
+            $("#connect-popup").popup("reposition", {});
+
+            $("#connect-popup li").click(function(ev) {
+                $("#connect-popup").popup("close");
+                $(".Panel").panel("open");
+
+                $("#connected-car").css("display", "initial");
+                $("#connected-car strong").text(ev.target.textContent);
+
+                setTimeout(function() {
+                    cordova.plugins.notification.local.schedule({
+                        title: "Geringe Fahrzeugreichweite",
+                        text: "Nächste Tankstelle ganz in der Nähe"
+                    })
+                }, 4000);
+            });
+        }, 1000);
+    })
+
     $(".SearchPopup__submit").click(function() {
-        let radius = parseFloat($("[name='distance-slider']").val(), 10);
-        let plugType = $("[name='plug-type']").val();
+        var radius = parseFloat($("[name='distance-slider']").val(), 10);
+        var plugType = $("[name='plug-type']").val();
 
         setMarker(radius, plugType, true);
     });
+
+    cordova.plugins.notification.local.on("click", function() {
+        setMarker(50, "Elektro", true);
+    })
 
     document.addEventListener('pause', onPause.bind(this), false);
     document.addEventListener('resume', onResume.bind(this), false);

@@ -40,11 +40,32 @@
             <a href="#connect-popup" data-rel="popup" data-position-to="window" data-transition="pop" class="ui-btn ui-icon-gear ui-btn-icon-left">Auto verbinden</a>
             <a href="#search-popup" data-rel="popup" data-position-to="window" data-transition="pop" class="ui-btn ui-icon-search ui-btn-icon-left">Tankstellen suchen</a>
             <a href="#" class="ui-btn ui-icon-info ui-btn-icon-left">&Uuml;ber eFuel</a>
+
+            <br>
+
+            <ul data-role="listview" id="connected-car" style="display: none">
+                <li>
+                    Aktuell verbunden mit:<br>
+                    <strong></strong>
+                </li>
+            </ul>
         </div>
 
-        <div data-role="popup" id="connect-popup" data-overlay-theme="a" style="max-width:400px;">
+        <div data-role="popup" id="connect-popup" data-overlay-theme="a">
             <div role="main" class="ui-content">
                 <p>Bluetooth-Ger&auml;te werden gesucht...</p>
+            </div>
+
+            <div style="display: none">
+                <div id="connect-popup-content">
+                    <p>Wählen Sie bitte Ihr Auto aus:</p>1
+
+                    <ul data-role="listview">
+                        <li class="ui-btn">Audi A3 e-tron</li>
+                        <li class="ui-btn">Ford Focus Electric</li>
+                        <li class="ui-btn">BMW i3</li>
+                    </ul>
+                </div>
             </div>
         </div>
 
