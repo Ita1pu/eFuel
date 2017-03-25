@@ -49,7 +49,13 @@
 
                     allStations = allStations.concat(stations);
                     remainingCallbacks--;
-                    if(remainingCallbacks === 0) return callback(null, allStations);
+                    if(remainingCallbacks === 0) {
+                        allStations = allStations.sort(function(entry1, entry2) {
+                            return entry1.distance - entry2.distance;
+                        })
+
+                        return callback(null, allStations);
+                    }
                 }
 
                 Finder.getAllGasStationsInRadius(lat, lng, radius, "", innerCb);
@@ -87,6 +93,7 @@
                         return {
                             lat: entry.location.lat,
                             lng: entry.location.lng,
+                            distance: entry.distance,
                             name: entry.name,
                             isElectro: false,
                         }
@@ -128,6 +135,7 @@
                         return {
                             lat: entry.coordinates.lat,
                             lng: entry.coordinates.lng,
+                            distance: entry.distance,
                             name: entry.name,
                             isElectro: true,
                         }
