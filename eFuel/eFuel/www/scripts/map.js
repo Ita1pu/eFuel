@@ -8,6 +8,8 @@
     var directionsService = null;
     var openInfoWindow = null;
 
+    var iconSize = 28;
+
     var Map = window.Map = {
         ICON_CAR: "images/car.svg",
         ICON_STATION: "images/station.svg",
@@ -28,7 +30,11 @@
             var marker = new google.maps.Marker({
                 position: point,
                 map: map,
-                icon: icon
+                icon: {
+                    url: icon,
+                    scaledSize: new google.maps.Size(iconSize, iconSize),
+                    anchor: new google.maps.Point(iconSize / 2, iconSize / 2),
+                },
             });
 
             if (infoText) {
