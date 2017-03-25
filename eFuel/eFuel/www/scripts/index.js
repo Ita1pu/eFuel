@@ -107,10 +107,12 @@ function onDeviceReady() {
 
                 setTimeout(function() {
                     cordova.plugins.notification.local.schedule({
+                        id: Math.random() * 100000 | 0,
                         title: "Geringe Fahrzeugreichweite",
-                        text: "Nächste Tankstelle ganz in der Nähe"
+                        text: "Nächste Tankstelle ganz in der Nähe",
+                        icon: "res://ic_local_gas_station_black_24dp.png"
                     })
-                }, 4000);
+                }, 7000);
             });
         }, 1000);
     })
