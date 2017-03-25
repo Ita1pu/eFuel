@@ -54,7 +54,17 @@ function setMarker(radius, plugType, showRoute) {
                         return;
                     }
 
+                    var bestMarker = Map.addMarker(
+                        bestMatch.lat,
+                        bestMatch.lng,
+                        bestMatch.isElectro ? Map.ICON_STATION : Map.ICON_GASSTATION,
+                        bestMatch.name
+                    );
+
+                    Map.showMarkerInfo(bestMarker);
                     Map.showLocationTo(position.lat, position.lng, bestMatch.lat, bestMatch.lng);
+
+                    stations.shift();
                 }
 
                 stations.forEach(function(station) {

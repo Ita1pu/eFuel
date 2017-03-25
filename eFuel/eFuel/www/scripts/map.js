@@ -31,19 +31,21 @@
                 icon: icon
             });
 
-            if(infoText) {
+            if (infoText) {
                 var infoWindow = new google.maps.InfoWindow({
                     content: infoText
                 });
 
+                marker.infoWindow = infoWindow;
+
                 marker.addListener("click", function() {
-                    if(openInfoWindow) openInfoWindow.close();
-                    infoWindow.open(map, marker);
-                    openInfoWindow = infoWindow;
+                    Map.showMarkerInfo(marker)
                 });
             }
 
             markers.push(marker);
+
+            return marker;
         },
 
         removeMarkers: function() {
@@ -72,6 +74,12 @@
                     directionsRenderer.setDirections(result);
                 }
             });
+        },
+
+        showMarkerInfo: function(marker) {
+            if (openInfoWindow) openInfoWindow.close();
+            openInfoWindow = marker.infoWindow;
+            marker.infoWindow.open(map, marker);
         }
     }
 
