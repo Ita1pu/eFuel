@@ -8,6 +8,10 @@ html, body, .Page, .ui-panel-wrapper, .ui-content, #Map__container {
     height: 100%;
 }
 
+h2::first-letter {
+    color: #156f0f;
+}
+
 .Panel__main-view {
     /* Overwrite padding from .ui-content */
     padding: 0 !important;
